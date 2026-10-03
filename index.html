@@ -1,217 +1,409 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- SEO Meta Tags -->
-  <title>APEX SUPPS | Suplementos Deportivos Fáciles de Comprar</title>
-  <meta name="description" content="La forma más fácil de comprar proteínas, creatinas y vitaminas premium. Elige tus productos, completa tus datos de envío y confirma tu pedido al instante por WhatsApp.">
-  <meta name="keywords" content="proteinas, creatinas, vitaminas, suplementos deportivos, comprar suplementos, WhatsApp, Republica Dominicana">
-  <meta name="author" content="APEX Labs">
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="APEX SUPPS | Suplementación Premium Directa">
-  <meta property="og:description" content="Proteínas y creatinas premium. Compra directa y rápida con envío por WhatsApp.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=1200&auto=format&fit=crop">
-  
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css">
-  
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Schema Markup (JSON-LD) for Local Business SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Store",
-    "name": "APEX SUPPS",
-    "image": "https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=600&auto=format&fit=crop",
-    "@id": "https://apex-supplements.com",
-    "url": "https://apex-supplements.com",
-    "telephone": "+18295705931",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Av. Winston Churchill",
-      "addressLocality": "Santo Domingo",
-      "postalCode": "10100",
-      "addressCountry": "DO"
-    },
-    "priceRange": "$$"
-  }
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOSAFAT — No Luches Tus Batallas Solo</title>
+  <meta name="description" content="Presentacion cinematografica sobre la historia de Josafat — 2 Cronicas 20" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- ==========================================
-       NAVBAR (Sencillo y legible)
-       ========================================== -->
-  <nav class="navbar">
-    <div class="container navbar-container">
-      <a href="#inicio" class="logo">
-        <span class="logo-text">APEX<span class="color-accent">SUPPS</span></span>
-      </a>
-      
-      <div class="navbar-info-links">
-        <span class="nav-contact"><i class="fab fa-whatsapp"></i> Soporte: <strong>+1 (829) 570-5931</strong></span>
-        <a href="#mi-pedido" class="nav-cart-link">
-          <i class="fa fa-shopping-basket"></i> Mi Pedido <span class="cart-badge" id="cart-badge-count">0</span>
-        </a>
-      </div>
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- TOP BAR: CHAPTER TAG + SCENE COUNTER -->
+  <div class="top-bar">
+    <div class="chapter-tag" id="chapterTag">LA HISTORIA</div>
+    <div class="scene-counter" id="sceneCounter">1 / 16</div>
+  </div>
+
+  <!-- NAV ARROWS -->
+  <button class="nav-btn nav-prev" id="prevBtn" aria-label="Anterior">&#8592;</button>
+  <button class="nav-btn nav-next" id="nextBtn" aria-label="Siguiente">&#8594;</button>
+
+  <!-- COMENTARIOS PANEL (toggled with P key) -->
+  <div class="preacher-panel" id="preacherPanel">
+    <div class="preacher-panel-header">
+      <span class="preacher-icon">&#128172;</span>
+      <span>COMENTARIOS</span>
+      <button class="panel-close" id="panelClose">&#10005;</button>
     </div>
-  </nav>
+    <div class="preacher-text" id="preacherText"></div>
+    <div class="preacher-ref" id="preacherRef"></div>
+  </div>
 
-  <!-- ==========================================
-       HERO (Banner de bienvenida limpio)
-       ========================================== -->
-  <header class="hero" id="inicio">
-    <div class="container hero-container">
-      <div class="hero-content">
-        <span class="hero-tag">Tienda Premium Dominicana</span>
-        <h1 class="hero-title">Suplementos Deportivos en un Solo Clic</h1>
-        <p class="hero-subtitle">Elige tus proteínas, creatinas o vitaminas de grado profesional, introduce tus datos y confirma tu pedido vía WhatsApp para entrega inmediata en Santo Domingo y provincias.</p>
-        <a href="#tienda" class="btn btn-primary">Ver Productos <i class="fa fa-arrow-down"></i></a>
-      </div>
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=600&auto=format&fit=crop" alt="Productos de nutrición deportiva">
-      </div>
-    </div>
-  </header>
+  <!-- TOGGLE HINT -->
+  <button class="guide-toggle" id="guideToggle" title="Comentarios [P]">
+    &#128172; COMENTARIOS
+  </button>
 
-  <!-- ==========================================
-       CATALOGO (Buscador, Filtros y Grid)
-       ========================================== -->
-  <section class="catalog-section" id="tienda">
-    <div class="container">
-      <div class="section-header">
-        <h2>Catálogo de Suplementos</h2>
-        <p>Filtrado por categoría o búsqueda directa.</p>
-      </div>
+  <!-- KEY HINT -->
+  <div class="key-hint" id="keyHint">&#8592; &#8594; navegar &nbsp;|&nbsp; [P] comentarios</div>
 
-      <!-- Barra de navegación del catálogo (Filtros y Búsqueda) -->
-      <div class="catalog-bar">
-        <div class="catalog-search">
-          <i class="fa fa-search search-icon"></i>
-          <input type="text" id="search-input" placeholder="Buscar producto...">
-        </div>
-        <div class="catalog-filters" id="categories-filter-bar">
-          <!-- Dinámico: Botones de categorías -->
-          <button class="filter-btn active" data-category="all">Todos</button>
-          <button class="filter-btn" data-category="Proteínas">Proteínas</button>
-          <button class="filter-btn" data-category="Creatinas">Creatinas</button>
-          <button class="filter-btn" data-category="Pre-entrenos">Pre-entrenos</button>
-          <button class="filter-btn" data-category="Quemadores de grasa">Quemadores</button>
-          <button class="filter-btn" data-category="Otros">Otros</button>
+  <!-- ===================== SLIDES ===================== -->
+  <div class="slides-wrapper" id="slidesWrapper">
+
+    <!-- ======= SLIDE 1: INTRO / TITULO ======= -->
+    <section class="slide" id="slide-1"
+      data-chapter="PRESENTACION"
+      data-guide="Josafat fue rey de Judá. Su historia, registrada en 2 Crónicas 20, es una de las victorias más poderosas del Antiguo Testamento — y su principio sigue siendo verdad hoy.">
+      <div class="slide-bg" style="background-image: url('images/scene_1_josafat_title_1791046068657.png')"></div>
+      <div class="slide-overlay overlay-warm-dark"></div>
+      <div class="golden-rays"></div>
+      <div class="slide-content center">
+        <div class="intro-block">
+          <span class="series-label anim-fade-up delay-300">2 CRONICAS 20</span>
+          <span class="title-main anim-stamp delay-800">JOSAFAT</span>
+          <div class="title-divider anim-expand delay-1600"></div>
+          <span class="title-theme anim-fade-up delay-2000">NO LUCHES TUS BATALLAS SOLO</span>
         </div>
       </div>
+      <div class="vignette"></div>
+    </section>
 
-      <!-- Grid de Productos -->
-      <div class="products-grid" id="products-grid">
-        <!-- Dinámico: Inyección de tarjetas de productos -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       SECCIÓN DE PEDIDO (Carrito y Formulario en la misma página)
-       ========================================== -->
-  <section class="order-section" id="mi-pedido">
-    <div class="container">
-      <div class="section-header">
-        <h2>Detalles de Tu Pedido</h2>
-        <p>Revisa tus artículos agregados y completa los datos de entrega para finalizar en WhatsApp.</p>
-      </div>
-
-      <div class="order-layout">
-        <!-- Columna 1: Artículos del Carrito -->
-        <div class="order-cart-card">
-          <h3>1. Productos Seleccionados</h3>
-          <div class="cart-items-list" id="cart-items-list">
-            <!-- Dinámico: Productos en el carrito o estado vacío -->
+    <!-- ======= SLIDE 2: CONTEXTO - QUIÉN ERA JOSAFAT ======= -->
+    <section class="slide" id="slide-2"
+      data-chapter="CAP. 1 — EL REY"
+      data-guide="2 Crónicas 17:3-6 — Josafat se estableció firmemente en Judá, quitó los lugares altos y los símbolos de Asera, y su corazón estuvo dispuesto en los caminos del Señor. Fue un rey que eligió la obediencia cuando muchos a su alrededor no lo hacían.">
+      <div class="slide-bg" style="background-image: url('images/scene_2_messenger_1791046078388.png')"></div>
+      <div class="slide-overlay overlay-warm-left"></div>
+      <div class="slide-content left-center">
+        <div class="context-block">
+          <span class="context-label anim-fade-up">QUIÉN ERA</span>
+          <span class="context-name anim-stamp">JOSAFAT</span>
+          <div class="context-facts">
+            <div class="fact-item anim-fade-up">
+              <span class="fact-icon">&#9670;</span>
+              <span>Rey de Juda</span>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="vignette"></div>
+    </section>
 
-        <!-- Columna 2: Formulario de Checkout -->
-        <div class="order-checkout-card">
-          <h3>2. Datos de Envío</h3>
-          <form class="checkout-form" id="checkout-form">
-            <div class="form-group">
-              <label class="form-label" for="client-name">Nombre Completo *</label>
-              <input type="text" class="form-input" id="client-name" placeholder="Ej. Juan Pérez" required>
-            </div>
-            
-            <div class="form-group">
-              <label class="form-label" for="client-phone">Teléfono / WhatsApp *</label>
-              <input type="tel" class="form-input" id="client-phone" placeholder="Ej. 809-555-0199" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="client-address">Dirección de Entrega *</label>
-              <input type="text" class="form-input" id="client-address" placeholder="Calle, número, sector o apto." required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="client-city">Ciudad / Provincia *</label>
-              <input type="text" class="form-input" id="client-city" placeholder="Ej. Santo Domingo, DN" required>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="client-payment">Método de Pago *</label>
-              <select class="form-select" id="client-payment" required>
-                <option value="" disabled selected>Selecciona cómo pagar</option>
-                <option value="Pago contra entrega">Pago contra entrega (Efectivo/Tarjeta al recibir)</option>
-                <option value="Transferencia Bancaria">Transferencia Bancaria (BPD / Banreservas)</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="client-comments">Instrucciones o Comentarios (Opcional)</label>
-              <textarea class="form-textarea" id="client-comments" placeholder="Ej. Entregar después de las 2 PM, timbre del portón negro..."></textarea>
-            </div>
-
-            <!-- Resumen de Costos -->
-            <div class="order-totals">
-              <div class="totals-row">
-                <span>Subtotal:</span>
-                <span id="cart-subtotal">RD$ 0</span>
-              </div>
-              <div class="totals-row">
-                <span>Envío:</span>
-                <span class="color-accent-green">¡GRATIS!</span>
-              </div>
-              <div class="totals-row total-highlight">
-                <span>Total a Pagar:</span>
-                <span id="cart-total">RD$ 0</span>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-checkout">
-              <i class="fab fa-whatsapp"></i> Confirmar Pedido en WhatsApp
-            </button>
-          </form>
+    <!-- ======= SLIDE 3: LA CRISIS - LLEGA LA NOTICIA ======= -->
+    <section class="slide" id="slide-3"
+      data-chapter="CAP. 2 — LA CRISIS"
+      data-guide="2 Crónicas 20:1-2 — Tres naciones se unieron contra Judá. Era una amenaza real, inmensa, sin solución humana aparente. Josafat lo sabía.">
+      <div class="slide-bg" style="background-image: url('images/scene_2_messenger_1791046078388.png')"></div>
+      <div class="slide-overlay overlay-dark-left"></div>
+      <div class="slide-content bottom-left">
+        <div class="crisis-block">
+          <span class="crisis-ref anim-fade-up delay-200">2 CRONICAS 20:1-2</span>
+          <span class="crisis-line anim-fade-up delay-600">"UN GRAN EJERCITO</span>
+          <span class="crisis-line gold anim-fade-up delay-1100">VIENE CONTRA TI."</span>
+          <span class="crisis-sub anim-fade-up delay-1800">3 naciones unidas. Era un ejercito inmenso.</span>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="vignette"></div>
+    </section>
 
-  <!-- ==========================================
-       FOOTER (Información simple de contacto)
-       ========================================== -->
-  <footer class="footer">
-    <div class="container footer-container">
-      <div class="footer-info">
-        <h3>APEX SUPPS</h3>
-        <p>Suplementación deportiva premium. Entregas express en Santo Domingo y envíos nacionales seguros en 24-48 horas.</p>
+    <!-- ======= SLIDE 4: LA REACCION - EL MIEDO ======= -->
+    <section class="slide" id="slide-4"
+      data-chapter="CAP. 3 — EL MIEDO"
+      data-guide="2 Crónicas 20:3 — La Biblia dice que Josafat tuvo miedo. No lo ocultó. Reconocer el miedo no es debilidad — es el primer paso hacia la fe correcta.">
+      <div class="slide-bg" style="background-image: url('images/scene_3_fear_1791046092693.png')"></div>
+      <div class="slide-overlay overlay-right-dark"></div>
+      <div class="slide-content right-center">
+        <div class="fear-block">
+          <span class="fear-ref anim-fade-up delay-200">2 CRONICAS 20:3</span>
+          <span class="word-giant anim-stamp delay-700">MIEDO.</span>
+          <span class="fear-sub anim-fade-up delay-2000">Josafat lo sintio.</span>
+          <span class="fear-sub gold anim-fade-up delay-2600">Y Dios lo vio.</span>
+        </div>
       </div>
-      <div class="footer-legal">
-        <p>&copy; 2026 APEX SUPPS. Santo Domingo, República Dominicana. WhatsApp: +1 (829) 570-5931</p>
-      </div>
-    </div>
-  </footer>
+      <div class="vignette"></div>
+    </section>
 
-  <!-- App Script module -->
-  <script type="module" src="app.js"></script>
+    <!-- ======= SLIDE 5: LA DECISION - BUSCAR A DIOS ======= -->
+    <section class="slide" id="slide-5"
+      data-chapter="CAP. 4 — LA DECISION"
+      data-guide="2 Crónicas 20:3-4 — Ante la crisis, Josafat proclamó ayuno y convocó al pueblo a buscar a Dios. No buscó estrategia militar primero — buscó al Señor primero.">
+      <div class="slide-bg" style="background-image: url('images/scene_4_decision_1791046102993.png')"></div>
+      <div class="slide-overlay overlay-top-warm"></div>
+      <div class="golden-rays warm"></div>
+      <div class="slide-content top-center">
+        <div class="decision-block">
+          <span class="decision-ref anim-fade-up delay-200">2 CRONICAS 20:3-4</span>
+          <div class="decision-text anim-fade-up delay-700">
+            SU PRIMERA REACCION:
+          </div>
+          <div class="decision-big anim-stamp delay-1400">
+            BUSCAR A <span class="gold glow">DIOS.</span>
+          </div>
+          <span class="decision-note anim-fade-up delay-2200">Todo Juda se reunio para buscar al Senor</span>
+        </div>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 6: LA ORACION - LAS PALABRAS DE JOSAFAT ======= -->
+    <section class="slide" id="slide-6"
+      data-chapter="CAP. 5 — LA ORACION"
+      data-guide="2 Crónicas 20:12 — Josafat oró delante de todo el pueblo con completa honestidad: 'No sabemos qué hacer, pero nuestros ojos están puestos en ti.' Reconoció su limitación y puso su confianza en Dios.">
+      <div class="slide-bg" style="background-image: url('images/scene_5_key_moment_1791046119260.png')"></div>
+      <div class="slide-overlay overlay-dark"></div>
+      <div class="divine-glow"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="prayer-ref anim-fade-up delay-300">2 CRONICAS 20:12</span>
+        <span class="prayer-line dim anim-fade-up delay-800">"...no sabemos que hacer..."</span>
+        <div class="divider-line anim-expand delay-1800"></div>
+        <span class="prayer-line gold anim-fade-up delay-2400">"...y a ti volvemos nuestros ojos."</span>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 7: DIOS RESPONDE ======= -->
+    <section class="slide" id="slide-7"
+      data-chapter="CAP. 6 — DIOS HABLA"
+      data-guide="2 Crónicas 20:14-15 — El Espíritu de Dios vino sobre Jahaziel y le habló al pueblo: 'No teman ni se aterren a causa de esta multitud. La batalla no es de ustedes, sino de Dios.'">
+      <div class="slide-bg scene7-bg"></div>
+      <div class="divine-glow bright"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="god-ref anim-fade-up delay-300">2 CRONICAS 20:15</span>
+        <span class="god-small anim-fade-up delay-700">Dios respondio a traves de Jahaziel:</span>
+        <span class="word-giant-bold anim-stamp delay-1300">NO TEMAS.</span>
+        <span class="god-middle anim-fade-up delay-2400">Esta batalla no es de ustedes...</span>
+        <span class="word-giant-sub gold anim-stamp delay-3200">ES DE DIOS.</span>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 8: LA INSTRUCCION ======= -->
+    <section class="slide" id="slide-8"
+      data-chapter="CAP. 7 — LA INSTRUCCION"
+      data-guide="2 Crónicas 20:16-17 — Dios les dio instrucciones precisas. La obediencia pedida era poco usual: posicionarse, quedarse quietos y ver la salvación del Señor. A veces la acción de fe es la quietud.">
+      <div class="slide-bg" style="background-image: url('images/scene_4_decision_1791046102993.png')"></div>
+      <div class="slide-overlay overlay-warm-dark"></div>
+      <div class="golden-rays"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="instr-ref anim-fade-up delay-300">2 CRONICAS 20:16-17</span>
+        <span class="instr-label anim-fade-up delay-700">La instruccion de Dios:</span>
+        <div class="instr-steps">
+          <div class="instr-step anim-fade-up">
+            <span class="step-num">1</span>
+            <span>POSICIONENSE</span>
+          </div>
+          <div class="instr-step anim-fade-up">
+            <span class="step-num">2</span>
+            <span>QUEDENSE QUIETOS</span>
+          </div>
+
+        </div>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 9: LA ALABANZA PRIMERO ======= -->
+    <section class="slide" id="slide-9"
+      data-chapter="CAP. 8 — ALABANZA ANTES"
+      data-guide="2 Crónicas 20:21 — Josafat puso a los cantores al frente del ejército, alabando a Dios antes de ver la victoria. La alabanza fue el acto de fe que precedió al milagro.">
+      <div class="slide-bg scene9-bg"></div>
+      <div class="sunrise-glow"></div>
+      <div class="singers-visual">
+        <div class="singers-row">
+          <div class="singer-figure"></div>
+          <div class="singer-figure"></div>
+          <div class="singer-figure"></div>
+          <div class="singer-figure"></div>
+          <div class="singer-figure"></div>
+        </div>
+        <div class="army-behind"></div>
+      </div>
+      <div class="slide-content center vertical-flow">
+        <span class="singers-ref anim-fade-up delay-300">2 CRONICAS 20:21</span>
+        <span class="singers-q anim-fade-up delay-800">Quien va al frente del ejercito?</span>
+        <div class="divider-line anim-expand delay-1600"></div>
+        <span class="singers-reveal gold anim-stamp delay-2200">LOS CANTORES.</span>
+        <span class="singers-sub anim-fade-up delay-3200">"Den gracias al Senor, porque su misericordia es para siempre."</span>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 10: DIOS ACTUA ======= -->
+    <section class="slide" id="slide-10"
+      data-chapter="CAP. 9 — DIOS ACTUA"
+      data-guide="2 Crónicas 20:22-24 — Cuando comenzaron a cantar y alabar, el Señor puso emboscadas contra los enemigos y se destruyeron entre sí. Judá no peleó. Solo recogió lo que Dios ya había ganado.">
+      <div class="slide-bg scene10-bg"></div>
+      <div class="divine-glow golden"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="act-ref anim-fade-up delay-300">2 CRONICAS 20:22-24</span>
+        <span class="act-line anim-fade-up delay-800">"Cuando comenzaron a cantar y alabar..."</span>
+        <div class="divider-line anim-expand delay-1800"></div>
+        <span class="word-giant-bold anim-stamp delay-2400">DIOS</span>
+        <span class="word-giant-sub gold anim-stamp delay-3000">PELEO LA BATALLA.</span>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 11: EL BOTIN - CELEBRACION ======= -->
+    <section class="slide" id="slide-11"
+      data-chapter="CAP. 10 — LA VICTORIA"
+      data-guide="2 Crónicas 20:25-26 — Recogieron botín por tres días. Al cuarto, se reunieron en el valle y bendijeron al Señor. Lo llamaron el Valle de Beracá — que significa bendición. La obediencia trajo desbordamiento.">
+      <div class="slide-bg scene10-bg"></div>
+      <div class="sunrise-glow intense"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="victory-ref anim-fade-up delay-300">2 CRONICAS 20:25-26</span>
+        <span class="victory-label anim-fade-up delay-700">El resultado:</span>
+        <div class="victory-facts">
+          <div class="victory-fact anim-fade-up">
+            <span class="victory-icon">&#9733;</span>
+            <span>RIQUESAS Y BENDICIÓN</span>
+          </div>
+        </div>
+        <span class="victory-big anim-stamp delay-3000">DIOS CUMPLE LO QUE PROMETE.</span>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 12: CONEXION HOY - TUS BATALLAS ======= -->
+    <section class="slide" id="slide-12"
+      data-chapter="HOY — TUS BATALLAS"
+      data-guide="Josafat enfrentó un ejército físico. Nosotros enfrentamos batallas espirituales, emocionales y familiares — igualmente reales. El mismo principio aplica: volver los ojos a Dios.">
+      <div class="slide-bg" style="background-image: url('images/scene_6_youth_alone_1791046129821.png')"></div>
+      <div class="slide-overlay overlay-dark"></div>
+      <div class="floating-words">
+        <span class="float-word fw-1"  style="--fw-d:0.3s">PRESIÓN</span>
+        <span class="float-word fw-2"  style="--fw-d:1.0s">RECHAZO</span>
+        <span class="float-word fw-3"  style="--fw-d:1.7s">ANSIEDAD</span>
+        <span class="float-word fw-4"  style="--fw-d:2.4s">MIEDO</span>
+        <span class="float-word fw-5"  style="--fw-d:3.1s">SOLEDAD</span>
+        <span class="float-word fw-6"  style="--fw-d:3.8s">FAMILIA</span>
+        <span class="float-word fw-7"  style="--fw-d:4.5s">FUTURO</span>
+        <span class="float-word fw-8"  style="--fw-d:5.2s">DUDAS</span>
+        <span class="float-word fw-9"  style="--fw-d:5.9s">FRACASO</span>
+        <span class="float-word fw-10" style="--fw-d:6.6s">IDENTIDAD</span>
+        <span class="float-word fw-11" style="--fw-d:7.3s">DEPRESIÓN</span>
+      </div>
+      <div class="slide-content center">
+        <span class="today-big" style="--fw-d:8.3s; animation: wordReveal 0.9s ease-out var(--fw-d,0s) both; opacity:0;">TU BATALLA</span>
+        <span class="today-big gold" style="--fw-d:9.1s; animation: wordReveal 0.9s ease-out var(--fw-d,0s) both; opacity:0;">TAMBIÉN ES REAL.</span>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 13: LA MISMA ESTRATEGIA ======= -->
+    <section class="slide" id="slide-13"
+      data-chapter="LA MISMA ESTRATEGIA"
+      data-guide="La misma estrategia de Josafat aplica hoy: buscar a Dios primero, confiar en su promesa, quedarse quieto en fe, y alabar antes de ver el resultado.">
+      <div class="slide-bg" style="background-image: url('images/scene_5_key_moment_1791046119260.png')"></div>
+      <div class="slide-overlay overlay-dark"></div>
+      <div class="divine-glow"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="strategy-ref anim-fade-up delay-300">LO QUE HIZO JOSAFAT — LO QUE PUEDES HACER TU</span>
+        <div class="strategy-steps">
+          <div class="strategy-step anim-fade-up delay-800">
+            <span class="ss-num">1</span>
+            <span>Reconoce que no puedes solo</span>
+          </div>
+          <div class="strategy-step anim-fade-up delay-1400">
+            <span class="ss-num">2</span>
+            <span>Busca a Dios primero</span>
+          </div>
+          <div class="strategy-step anim-fade-up delay-2000">
+            <span class="ss-num">3</span>
+            <span>Confía en su promesa</span>
+          </div>
+          <div class="strategy-step gold anim-fade-up delay-2600">
+            <span class="ss-num gold">4</span>
+            <span>Alaba antes de ver el resultado</span>
+          </div>
+        </div>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 14: EL VERSICULO ======= -->
+    <section class="slide" id="slide-14"
+      data-chapter="EL VERSICULO CENTRAL"
+      data-guide="2 Crónicas 20:12 — Versículo central de toda la historia. Josafat reconoció su limitación y puso su mirada en Dios. Esa es la postura que Dios honra.">
+      <div class="slide-bg scene-verse-bg"></div>
+      <div class="divine-glow golden"></div>
+      <div class="golden-rays intense"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="verse-big-ref anim-fade-up delay-300">2 CRONICAS 20:12</span>
+        <div class="verse-big-block anim-fade-up delay-900">
+          <span class="verse-big-text">"...no sabemos</span>
+          <span class="verse-big-text">que hacer,</span>
+          <span class="verse-big-text gold">y a ti volvemos</span>
+          <span class="verse-big-text gold">nuestros ojos."</span>
+        </div>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 15: DESAFIO ======= -->
+    <section class="slide" id="slide-15"
+      data-chapter="EL DESAFIO"
+      data-guide="El llamado es práctico: la próxima vez que no sepas qué hacer, que la primera reacción sea buscar a Dios — antes que cualquier otra cosa.">
+      <div class="slide-bg scene-challenge-bg"></div>
+      <div class="golden-rays warm"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="challenge-title anim-fade-up delay-300">EL DESAFIO</span>
+        <span class="challenge-q anim-fade-up delay-900">La proxima vez que no sepas que hacer...</span>
+        <div class="challenge-order">
+          <span class="co-item anim-fade-up delay-1500">Antes de llamar a un amigo</span>
+          <span class="co-item anim-fade-up delay-1900">Antes de buscar en internet</span>
+          <span class="co-item anim-fade-up delay-2300">Antes de preocuparte</span>
+          <div class="divider-line anim-expand delay-2900"></div>
+          <span class="co-answer gold anim-stamp delay-3400">MIRA A DIOS PRIMERO.</span>
+        </div>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 16: CUANTO REINO JOSAFAT ======= -->
+    <section class="slide" id="slide-16"
+      data-chapter="DATO HISTÓRICO"
+      data-guide="1 Reyes 22:42 — Josafat reinó 25 años en Jerusalén. La Biblia registra que hizo lo recto ante los ojos del Señor. Un reinado largo y bendecido para quien puso su confianza en Dios.">
+      <div class="slide-bg" style="background-image: url('images/scene_1_josafat_title_1791046068657.png')"></div>
+      <div class="slide-overlay" style="background:linear-gradient(135deg,rgba(0,0,0,0.75) 0%,rgba(10,8,4,0.55) 100%);"></div>
+      <div class="divine-glow golden"></div>
+      <div class="slide-content center vertical-flow">
+        <span class="anim-fade-up delay-300" style="font-family:var(--font-display);font-size:clamp(11px,1.4vw,16px);letter-spacing:0.3em;color:rgba(200,169,78,0.75);text-transform:uppercase;">1 Reyes 22:42</span>
+        <span class="anim-fade-up delay-700" style="font-family:var(--font-display);font-size:clamp(14px,1.8vw,20px);letter-spacing:0.15em;color:rgba(255,255,255,0.6);text-transform:uppercase;margin-top:0.5rem;">Josafat reinó en Jerusalén</span>
+        <div class="anim-stamp delay-1400" style="display:flex;align-items:baseline;gap:0.3em;margin:1.2rem 0;">
+          <span style="font-family:var(--font-display);font-size:clamp(90px,18vw,220px);font-weight:900;color:#C8A94E;line-height:1;text-shadow:0 0 60px rgba(200,169,78,0.5);">25</span>
+          <span style="font-family:var(--font-display);font-size:clamp(28px,5vw,64px);font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:0.1em;">AÑOS</span>
+        </div>
+        <span class="anim-fade-up delay-2200" style="font-family:var(--font-body);font-size:clamp(13px,1.6vw,18px);color:rgba(255,255,255,0.5);letter-spacing:0.08em;font-style:italic;max-width:480px;text-align:center;line-height:1.6;">No por ser el más fuerte,<br>sino por mirar siempre en la dirección correcta.</span>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+    <!-- ======= SLIDE 17: CIERRE ======= -->
+    <section class="slide" id="slide-17"
+      data-chapter="CIERRE"
+      data-guide="2 Crónicas 20:15 — 'La batalla no es de ustedes, sino de Dios.' Esta promesa no fue solo para Josafat. Es para todo aquel que vuelve sus ojos al Señor en medio de la dificultad.">
+      <div class="slide-bg scene-closing-bg"></div>
+      <div class="divine-glow golden"></div>
+      <div class="golden-rays intense"></div>
+      <div class="closing-particles" id="closingParticles"></div>
+      <div class="slide-content center vertical-flow closing-flow">
+        <span class="closing-small anim-fade-up delay-400">CUANDO NO SEPAS QUE HACER...</span>
+        <div class="divider-line anim-expand delay-1400"></div>
+        <span class="closing-main anim-stamp delay-2000">MIRA A DIOS.</span>
+        <div class="verse-end-block anim-fade-up delay-3500">
+          <span class="verse-end-text">"...y a ti volvemos nuestros ojos."</span>
+          <span class="verse-end-ref">2 CRONICAS 20:12</span>
+        </div>
+        <div class="closing-series anim-fade-up delay-5200">
+          <span>NO LUCHES TUS BATALLAS</span>
+          <span class="gold">SOLO.</span>
+        </div>
+      </div>
+      <div class="vignette"></div>
+    </section>
+
+  </div><!-- /slides-wrapper -->
+
+  <script src="main.js"></script>
 </body>
 </html>

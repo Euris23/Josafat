@@ -1,0 +1,783 @@
+/* =============================================
+   JOSAFAT — CINEMATIC PRESENTATION v2
+   Paleta: Negro / Azul oscuro / Blanco / DORADO
+   Tono: Positivo, cinematografico, cronologico
+   ============================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:       #000000;
+  --dark-1:      #060a0f;
+  --dark-2:      #0a1220;
+  --dark-blue:   #0c1a30;
+  --mid-blue:    #163050;
+  --gold:        #c8a94e;
+  --gold-light:  #f0d07a;
+  --gold-pale:   #fae9b0;
+  --gold-glow:   rgba(200,169,78,0.55);
+  --white:       #ffffff;
+  --white-dim:   rgba(255,255,255,0.65);
+  --white-ghost: rgba(255,255,255,0.18);
+  --warm-light:  rgba(255,200,80,0.18);
+  --font-display:'Bebas Neue', sans-serif;
+  --font-title:  'Cinzel', serif;
+  --font-body:   'Inter', sans-serif;
+}
+
+html, body {
+  width:100%; height:100%;
+  overflow:hidden;
+  background: var(--dark-1);
+  font-family: var(--font-body);
+  color: var(--white);
+}
+
+/* =============================================
+   PROGRESS BAR
+   ============================================= */
+.progress-bar-container {
+  position:fixed; top:0; left:0; right:0; height:3px;
+  background:rgba(255,255,255,0.07);
+  z-index:1000;
+}
+.progress-bar {
+  height:100%;
+  background: linear-gradient(90deg, #a07830, var(--gold-light), #faf0c0);
+  width: 6.25%; /* 1/16 */
+  transition: width 0.65s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 0 16px var(--gold-glow);
+}
+
+/* =============================================
+   TOP BAR
+   ============================================= */
+.top-bar {
+  position:fixed; top:10px; left:0; right:0;
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 0 24px;
+  z-index:1000;
+  pointer-events:none;
+}
+.chapter-tag {
+  font-family: var(--font-body);
+  font-size:11px; font-weight:700; letter-spacing:3px;
+  color: var(--gold);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(200,169,78,0.3);
+  padding: 5px 14px;
+  border-radius:2px;
+  backdrop-filter:blur(4px);
+  text-transform:uppercase;
+  transition: all 0.4s ease;
+}
+.scene-counter {
+  font-family: var(--font-body);
+  font-size:11px; font-weight:600; letter-spacing:3px;
+  color:rgba(255,255,255,0.3);
+}
+
+/* =============================================
+   NAV BUTTONS
+   ============================================= */
+.nav-btn {
+  position:fixed; top:50%; transform:translateY(-50%);
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.35);
+  width:50px; height:50px;
+  border-radius:50%; font-size:20px;
+  cursor:pointer; z-index:1000;
+  transition:all 0.3s ease;
+  backdrop-filter:blur(6px);
+}
+.nav-btn:hover {
+  background:rgba(200,169,78,0.18);
+  border-color:var(--gold);
+  color:var(--gold-light);
+  box-shadow:0 0 24px rgba(200,169,78,0.25);
+}
+.nav-prev { left:16px; }
+.nav-next { right:16px; }
+.nav-btn:disabled { opacity:0.1; pointer-events:none; }
+
+/* =============================================
+   PREACHER GUIDE PANEL
+   ============================================= */
+/* =============================================
+   COMENTARIOS — FULL SCREEN OVERLAY
+   ============================================= */
+.preacher-panel {
+  position:fixed; inset:0;
+  background:rgba(4, 8, 18, 0.97);
+  z-index:900;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.4s ease;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:5vw 8vw;
+  text-align:center;
+}
+.preacher-panel.open {
+  opacity:1; pointer-events:all;
+}
+
+.preacher-panel-header {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:2.5rem;
+  font-family:var(--font-body);
+  font-size:10px; font-weight:700; letter-spacing:4px;
+  color:rgba(200,169,78,0.7);
+  text-transform:uppercase;
+}
+.preacher-icon { font-size:16px; }
+.panel-close {
+  margin-left:auto;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  color:rgba(255,255,255,0.5);
+  font-size:18px; cursor:pointer;
+  border-radius:50%; width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s;
+}
+.panel-close:hover { background:rgba(255,255,255,0.15); color:var(--white); }
+
+.preacher-text {
+  font-family:var(--font-body);
+  font-size:clamp(16px, 2.2vw, 26px);
+  line-height:1.85; font-weight:300;
+  color:rgba(255,255,255,0.92);
+  max-width:780px;
+  margin-bottom:2rem;
+}
+.preacher-ref {
+  font-family:var(--font-body);
+  font-size:11px; font-weight:700; letter-spacing:3px;
+  color:rgba(200,169,78,0.6);
+  text-transform:uppercase;
+}
+
+
+/* GUIDE TOGGLE BUTTON */
+.guide-toggle {
+  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  background:rgba(0,0,0,0.55);
+  border:1px solid rgba(200,169,78,0.3);
+  color:var(--gold);
+  font-family:var(--font-body);
+  font-size:10px; font-weight:700; letter-spacing:3px;
+  padding:8px 20px; border-radius:2px;
+  cursor:pointer; z-index:1000;
+  backdrop-filter:blur(6px);
+  transition:all 0.3s ease;
+}
+.guide-toggle:hover {
+  background:rgba(200,169,78,0.15);
+  border-color:var(--gold);
+}
+
+/* KEY HINT */
+.key-hint {
+  position:fixed; bottom:54px; left:50%; transform:translateX(-50%);
+  font-size:10px; letter-spacing:2px; color:rgba(255,255,255,0.18);
+  z-index:1000; transition:opacity 1s ease; white-space:nowrap;
+}
+
+/* =============================================
+   SLIDES CORE
+   ============================================= */
+.slides-wrapper {
+  width:100vw; height:100vh;
+  position:relative; overflow:hidden;
+}
+.slide {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.12s ease;
+}
+.slide.active { opacity:1; pointer-events:all; }
+
+/* SLIDE BG — Ken Burns zoom */
+.slide-bg {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  transform:scale(1.07);
+  transition:transform 14s ease-out;
+  will-change:transform;
+}
+.slide.active .slide-bg { transform:scale(1); }
+
+/* OVERLAYS */
+.slide-overlay { position:absolute; inset:0; }
+.overlay-warm-dark  { background:linear-gradient(to bottom, rgba(4,8,16,0.5) 0%, rgba(8,18,36,0.65) 100%); }
+.overlay-dark       { background:linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(4,10,22,0.65) 100%); }
+.overlay-dark-left  { background:linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 60%, transparent 100%); }
+.overlay-warm-left  { background:linear-gradient(to right, rgba(4,10,22,0.9) 0%, rgba(4,10,22,0.35) 60%, transparent 100%); }
+.overlay-right-dark { background:linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); }
+.overlay-top-warm   { background:linear-gradient(to bottom, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.15) 55%, transparent 100%); }
+
+/* VIGNETTE */
+.vignette {
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.72) 100%);
+}
+
+/* GOLDEN RAYS */
+.golden-rays {
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse at 50% -5%, rgba(255,210,80,0.28) 0%, rgba(200,169,78,0.06) 45%, transparent 70%);
+  animation:raysBreath 6s ease-in-out infinite alternate;
+}
+.golden-rays.warm {
+  background:radial-gradient(ellipse at 50% 110%, rgba(255,200,60,0.35) 0%, rgba(200,169,78,0.08) 45%, transparent 70%);
+}
+.golden-rays.intense {
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,220,100,0.45) 0%, rgba(200,169,78,0.12) 50%, transparent 72%);
+}
+@keyframes raysBreath {
+  from { opacity:0.6; }
+  to   { opacity:1; }
+}
+
+/* DIVINE GLOW */
+.divine-glow {
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 30%, rgba(200,169,78,0.25) 0%, rgba(200,169,78,0.06) 45%, transparent 70%);
+  animation:divineBreath 5s ease-in-out infinite alternate;
+}
+.divine-glow.bright {
+  background:radial-gradient(ellipse at 50% 20%, rgba(255,230,130,0.4) 0%, rgba(200,169,78,0.1) 45%, transparent 70%);
+}
+.divine-glow.golden {
+  background:radial-gradient(ellipse at 50% 25%, rgba(255,220,100,0.45) 0%, rgba(200,169,78,0.12) 50%, transparent 72%);
+}
+@keyframes divineBreath {
+  from { opacity:0.7; }
+  to   { opacity:1; }
+}
+
+/* =============================================
+   SLIDE CONTENT POSITIONS
+   ============================================= */
+.slide-content {
+  position:relative; z-index:10;
+  display:flex; flex-direction:column;
+  padding:50px 90px;
+}
+.slide-content.center { align-items:center; text-align:center; justify-content:center; }
+.slide-content.left-center { align-items:flex-start; text-align:left; justify-content:center; }
+.slide-content.right-center { align-items:flex-end; text-align:right; justify-content:center; position:absolute; right:80px; top:50%; transform:translateY(-50%); padding:0; }
+.slide-content.bottom-left { align-items:flex-start; justify-content:flex-end; text-align:left; position:absolute; bottom:90px; left:80px; padding:0; }
+.slide-content.top-center { align-items:center; justify-content:flex-start; text-align:center; position:absolute; top:70px; left:0; right:0; padding:0 80px; }
+.slide-content.vertical-flow { gap:20px; }
+.slide-content.closing-flow { gap:14px; }
+
+/* UTILITIES */
+.gold  { color:var(--gold-light); }
+.glow  { text-shadow:0 0 50px var(--gold-glow), 0 0 20px var(--gold-glow); }
+.dim   { opacity:0.55; }
+.mt-lg { margin-top:28px; }
+
+/* DIVIDER LINE */
+.divider-line {
+  height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  width:0;
+}
+
+/* =============================================
+   TYPOGRAPHY COMPONENTS
+   ============================================= */
+
+/* --- SLIDE 1: INTRO --- */
+.intro-block { display:flex; flex-direction:column; align-items:center; gap:14px; }
+.series-label {
+  font-family:var(--font-body); font-size:13px; font-weight:700; letter-spacing:5px;
+  color:var(--gold); text-transform:uppercase;
+}
+.title-main {
+  font-family:var(--font-title); font-weight:900;
+  font-size:clamp(80px,14vw,160px); letter-spacing:0.12em;
+  color:var(--white); line-height:1;
+  text-shadow:0 0 80px rgba(200,169,78,0.45), 0 4px 40px rgba(0,0,0,0.8);
+}
+.title-divider {
+  height:2px; width:0;
+  background:linear-gradient(90deg, transparent, var(--gold-light), transparent);
+}
+.title-theme {
+  font-family:var(--font-display); font-size:clamp(28px,4.5vw,56px);
+  letter-spacing:0.18em; color:var(--gold-light);
+  text-shadow:0 0 30px rgba(200,169,78,0.4);
+}
+
+/* --- SLIDE 2: CONTEXT --- */
+.context-block { display:flex; flex-direction:column; gap:20px; max-width:520px; }
+.context-label {
+  font-family:var(--font-body); font-size:12px; font-weight:700; letter-spacing:4px;
+  color:var(--gold); text-transform:uppercase;
+}
+.context-name {
+  font-family:var(--font-display); font-size:clamp(64px,11vw,130px);
+  letter-spacing:0.1em; color:var(--white); line-height:1;
+  text-shadow:0 2px 40px rgba(0,0,0,0.8);
+}
+.context-facts { display:flex; flex-direction:column; gap:14px; }
+.fact-item {
+  display:flex; align-items:center; gap:14px;
+  font-family:var(--font-body); font-size:clamp(15px,2vw,20px);
+  font-weight:500; color:rgba(255,255,255,0.85); letter-spacing:0.05em;
+}
+.fact-icon { color:var(--gold); font-size:10px; }
+
+/* --- SLIDE 3: CRISIS --- */
+.crisis-block { display:flex; flex-direction:column; gap:10px; }
+.crisis-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:3px;
+  color:var(--gold); margin-bottom:8px;
+}
+.crisis-line {
+  font-family:var(--font-display); font-size:clamp(40px,7vw,90px);
+  letter-spacing:0.1em; color:var(--white); display:block;
+  text-shadow:0 2px 20px rgba(0,0,0,0.9);
+}
+.crisis-sub {
+  font-family:var(--font-body); font-size:15px; font-weight:300;
+  color:rgba(255,255,255,0.5); letter-spacing:0.05em; margin-top:10px;
+}
+
+/* --- SLIDE 4: FEAR --- */
+.fear-block { display:flex; flex-direction:column; gap:12px; align-items:flex-end; }
+.fear-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:3px;
+  color:var(--gold);
+}
+.word-giant {
+  font-family:var(--font-display); font-size:clamp(80px,16vw,180px);
+  letter-spacing:0.06em; color:var(--white); line-height:1; display:block;
+  text-shadow:0 0 40px rgba(0,0,0,0.6);
+}
+.fear-sub {
+  font-family:var(--font-body); font-size:clamp(16px,2vw,22px);
+  font-weight:400; color:rgba(255,255,255,0.65); letter-spacing:0.08em;
+}
+
+/* --- SLIDE 5: DECISION --- */
+.decision-block { display:flex; flex-direction:column; align-items:center; gap:14px; }
+.decision-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:3px;
+  color:var(--gold);
+}
+.decision-text {
+  font-family:var(--font-body); font-size:clamp(13px,1.8vw,18px);
+  font-weight:500; letter-spacing:5px; color:rgba(255,255,255,0.55);
+  text-transform:uppercase;
+}
+.decision-big {
+  font-family:var(--font-display); font-size:clamp(60px,11vw,130px);
+  letter-spacing:0.1em; color:var(--white);
+  text-shadow:0 2px 30px rgba(0,0,0,0.7); line-height:1;
+}
+.decision-note {
+  font-family:var(--font-body); font-size:clamp(13px,1.6vw,17px);
+  font-weight:300; color:rgba(255,255,255,0.45); letter-spacing:0.05em;
+}
+
+/* --- SLIDE 6: PRAYER --- */
+.prayer-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:4px;
+  color:var(--gold);
+}
+.prayer-line {
+  font-family:var(--font-title); font-size:clamp(26px,4vw,56px);
+  font-weight:400; font-style:italic; letter-spacing:0.05em;
+  color:var(--white-dim);
+  text-shadow:0 2px 20px rgba(0,0,0,0.5);
+}
+
+/* --- SLIDE 7: GOD SPEAKS --- */
+.god-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:4px;
+  color:var(--gold);
+}
+.god-small, .god-middle {
+  font-family:var(--font-body); font-size:clamp(14px,2vw,19px);
+  font-weight:300; color:rgba(255,255,255,0.55); letter-spacing:0.06em;
+}
+.word-giant-bold {
+  font-family:var(--font-display); font-size:clamp(80px,16vw,190px);
+  letter-spacing:0.06em; color:var(--white); line-height:0.92; display:block;
+  text-shadow:0 0 60px rgba(255,230,100,0.2);
+}
+.word-giant-sub {
+  font-family:var(--font-display); font-size:clamp(44px,8vw,100px);
+  letter-spacing:0.1em; color:var(--gold-light); display:block;
+  text-shadow:0 0 60px var(--gold-glow);
+}
+
+/* --- SLIDE 8: INSTRUCCION --- */
+.instr-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:4px;
+  color:var(--gold);
+}
+.instr-label {
+  font-family:var(--font-body); font-size:13px; font-weight:500; letter-spacing:3px;
+  color:rgba(255,255,255,0.45); text-transform:uppercase;
+}
+.instr-steps { display:flex; flex-direction:column; gap:18px; margin-top:8px; }
+.instr-step {
+  display:flex; align-items:center; gap:20px;
+  font-family:var(--font-display); font-size:clamp(28px,4.5vw,56px);
+  letter-spacing:0.15em; color:var(--white);
+}
+.step-num {
+  font-family:var(--font-title); font-size:clamp(20px,3vw,36px);
+  color:rgba(200,169,78,0.5); font-weight:700; min-width:32px;
+  text-align:right;
+}
+
+/* --- SLIDE 9: SINGERS --- */
+.singers-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:4px;
+  color:var(--gold);
+}
+.singers-q {
+  font-family:var(--font-body); font-size:clamp(15px,2vw,22px);
+  font-weight:300; color:rgba(255,255,255,0.5); letter-spacing:0.05em;
+}
+.singers-reveal {
+  font-family:var(--font-display); font-size:clamp(60px,11vw,130px);
+  letter-spacing:0.08em; color:var(--gold-light);
+  text-shadow:0 0 80px var(--gold-glow); display:block;
+}
+.singers-sub {
+  font-family:var(--font-title); font-size:clamp(14px,1.8vw,20px);
+  font-style:italic; color:rgba(255,255,255,0.4); max-width:520px; text-align:center;
+}
+
+/* --- SLIDE 10: GOD ACTS --- */
+.act-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:4px;
+  color:var(--gold);
+}
+.act-line {
+  font-family:var(--font-title); font-size:clamp(18px,2.5vw,28px);
+  font-style:italic; color:rgba(255,255,255,0.45);
+}
+
+/* --- SLIDE 11: VICTORY --- */
+.victory-ref {
+  font-family:var(--font-body); font-size:11px; font-weight:700; letter-spacing:4px;
+  color:var(--gold);
+}
+.victory-label {
+  font-family:var(--font-body); font-size:13px; letter-spacing:4px; font-weight:500;
+  color:rgba(255,255,255,0.4); text-transform:uppercase;
+}
+.victory-facts { display:flex; flex-direction:column; gap:16px; margin:8px 0; }
+.victory-fact {
+  display:flex; align-items:center; gap:14px;
+  font-family:var(--font-body); font-size:clamp(14px,1.8vw,20px);
+  font-weight:500; color:rgba(255,255,255,0.8);
+}
+.victory-icon { color:rgba(200,169,78,0.5); font-size:14px; }
+.victory-big {
+  font-family:var(--font-display); font-size:clamp(28px,4.5vw,58px);
+  letter-spacing:0.12em; color:var(--gold-light);
+  text-shadow:0 0 40px var(--gold-glow); margin-top:8px;
+}
+
+/* --- SLIDE 12: TODAY --- */
+.today-big {
+  font-family:var(--font-display); font-size:clamp(56px,10vw,120px);
+  letter-spacing:0.1em; color:var(--white); display:block;
+}
+
+/* --- SLIDE 13: STRATEGY --- */
+.strategy-ref {
+  font-family:var(--font-body); font-size:10px; font-weight:700; letter-spacing:3px;
+  color:var(--gold); text-transform:uppercase;
+}
+.strategy-steps { display:flex; flex-direction:column; gap:18px; }
+.strategy-step {
+  display:flex; align-items:center; gap:18px;
+  font-family:var(--font-body); font-size:clamp(16px,2vw,22px);
+  font-weight:500; color:rgba(255,255,255,0.85);
+}
+.ss-num {
+  font-family:var(--font-title); font-size:clamp(20px,3vw,36px);
+  color:rgba(200,169,78,0.4); font-weight:900; min-width:36px; text-align:right;
+}
+
+/* --- SLIDE 14: VERSE --- */
+.verse-big-ref {
+  font-family:var(--font-body); font-size:12px; font-weight:700; letter-spacing:5px;
+  color:var(--gold);
+}
+.verse-big-block {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.verse-big-text {
+  font-family:var(--font-title); font-size:clamp(28px,5vw,68px);
+  font-weight:700; color:var(--white); letter-spacing:0.04em; line-height:1.2;
+}
+
+/* --- SLIDE 15: CHALLENGE --- */
+.challenge-title {
+  font-family:var(--font-display); font-size:clamp(36px,6vw,78px);
+  letter-spacing:0.18em; color:var(--gold-light);
+  text-shadow:0 0 40px var(--gold-glow);
+}
+.challenge-q {
+  font-family:var(--font-body); font-size:clamp(15px,2vw,20px);
+  font-weight:300; color:rgba(255,255,255,0.5); letter-spacing:0.04em;
+}
+.challenge-order { display:flex; flex-direction:column; align-items:center; gap:12px; width:100%; }
+.co-item {
+  font-family:var(--font-body); font-size:clamp(14px,1.8vw,18px);
+  font-weight:300; color:rgba(255,255,255,0.4); letter-spacing:0.05em;
+}
+.co-answer {
+  font-family:var(--font-display); font-size:clamp(48px,8.5vw,105px);
+  letter-spacing:0.1em; color:var(--gold-light);
+  text-shadow:0 0 60px var(--gold-glow); display:block;
+}
+
+/* --- SLIDE 16: CLOSING --- */
+.closing-small {
+  font-family:var(--font-body); font-size:clamp(13px,1.8vw,19px);
+  font-weight:300; letter-spacing:3px; color:rgba(255,255,255,0.4); display:block;
+  text-transform:uppercase;
+}
+.closing-main {
+  font-family:var(--font-display); font-size:clamp(72px,14vw,160px);
+  letter-spacing:0.06em; color:var(--white); line-height:1; display:block;
+  text-shadow:0 0 80px rgba(200,169,78,0.35);
+}
+.verse-end-block {
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  border-top:1px solid rgba(200,169,78,0.2);
+  padding-top:18px;
+}
+.verse-end-text {
+  font-family:var(--font-title); font-size:clamp(16px,2vw,22px);
+  font-style:italic; color:rgba(255,255,255,0.55);
+}
+.verse-end-ref {
+  font-family:var(--font-body); font-size:12px; font-weight:700;
+  letter-spacing:4px; color:var(--gold); text-transform:uppercase;
+}
+.closing-series {
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  font-family:var(--font-display); font-size:clamp(20px,3vw,38px);
+  letter-spacing:0.15em; color:rgba(255,255,255,0.4);
+}
+
+/* =============================================
+   CSS BACKGROUNDS FOR SCENES WITHOUT IMAGES
+   ============================================= */
+.scene7-bg {
+  background:radial-gradient(ellipse at 50% 20%, #162840 0%, #0a1525 50%, #040810 100%);
+}
+.scene9-bg {
+  background:linear-gradient(180deg, #0c1a10 0%, #162a18 50%, #0a1a0c 100%);
+}
+.scene10-bg {
+  background:radial-gradient(ellipse at 50% 85%, rgba(200,150,30,0.25) 0%, #0c1a08 40%, #060c04 100%);
+}
+.scene-verse-bg {
+  background:radial-gradient(ellipse at 50% 45%, #0e1a30 0%, #060e1a 60%, #020408 100%);
+}
+.scene-challenge-bg {
+  background:linear-gradient(135deg, #080c14 0%, #0e1a28 50%, #060810 100%);
+}
+.scene-closing-bg {
+  background:radial-gradient(ellipse at 50% 50%, #101a08 0%, #040a04 50%, #000000 100%);
+}
+
+/* =============================================
+   SINGERS VISUAL
+   ============================================= */
+.singers-visual {
+  position:absolute; bottom:0; left:0; right:0; height:40%;
+  display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
+  pointer-events:none;
+}
+.singers-row {
+  display:flex; gap:22px; align-items:flex-end; padding-bottom:16px;
+  position:relative; z-index:2;
+}
+.singer-figure {
+  width:20px; opacity:0;
+  background:linear-gradient(to bottom, #f0d07a, rgba(200,169,78,0.25));
+  border-radius:10px 10px 0 0;
+  box-shadow:0 0 24px rgba(200,169,78,0.35);
+  animation:singerPulse 3.5s ease-in-out infinite alternate;
+  transition:opacity 0.8s ease;
+}
+.slide.active .singer-figure { opacity:1; }
+.singer-figure:nth-child(1){height:65px; animation-delay:0.1s;}
+.singer-figure:nth-child(2){height:88px; animation-delay:0.4s;}
+.singer-figure:nth-child(3){height:76px; animation-delay:0.2s;}
+.singer-figure:nth-child(4){height:82px; animation-delay:0.5s;}
+.singer-figure:nth-child(5){height:70px; animation-delay:0.3s;}
+.army-behind {
+  position:absolute; bottom:0; left:0; right:0; height:30px;
+  background:linear-gradient(to top, rgba(30,30,30,0.5) 0%, transparent 100%);
+}
+@keyframes singerPulse {
+  from { box-shadow:0 0 15px rgba(200,169,78,0.2); }
+  to   { box-shadow:0 0 45px rgba(200,169,78,0.7); }
+}
+
+/* SUNRISE GLOW */
+.sunrise-glow {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 100%, rgba(255,180,50,0.38) 0%, rgba(200,150,30,0.1) 35%, transparent 60%);
+  animation:sunBreath 5s ease-in-out infinite alternate;
+}
+.sunrise-glow.intense {
+  background:radial-gradient(ellipse at 50% 100%, rgba(255,200,80,0.55) 0%, rgba(200,150,30,0.15) 35%, transparent 62%);
+}
+@keyframes sunBreath {
+  from { opacity:0.65; }
+  to   { opacity:1; }
+}
+
+/* =============================================
+   FLOATING WORDS — SCENE 12
+   ============================================= */
+.floating-words {
+  position:absolute; inset:0; pointer-events:none;
+}
+.float-word {
+  position:absolute;
+  font-family:var(--font-display); letter-spacing:0.18em;
+  color:rgba(255,255,255,0.55); font-size:clamp(24px,3.8vw,56px);
+  font-weight:700;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  opacity:0;
+  text-transform:uppercase;
+}
+.fw-1{top:10%; left:5%;}
+.fw-2{top:24%; right:6%;}
+.fw-3{top:40%; left:7%; color:rgba(200,169,78,0.65);}
+.fw-4{top:56%; right:9%;}
+.fw-5{bottom:24%; left:11%;}
+.fw-6{top:18%; left:40%; color:rgba(200,169,78,0.65);}
+.fw-7{bottom:11%; right:7%;}
+.fw-8{top:32%; left:3%; color:rgba(200,169,78,0.65);}
+.fw-9{bottom:36%; right:4%;}
+.fw-10{top:6%; right:18%;}
+.fw-11{bottom:6%; left:32%; color:rgba(200,169,78,0.65);}
+
+/* CLOSING PARTICLES */
+.closing-particles {
+  position:absolute; inset:0; pointer-events:none; overflow:hidden;
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+.anim-fade-up, .anim-stamp, .anim-float, .anim-glow, .anim-expand {
+  opacity:0;
+}
+
+/* Delays */
+.delay-200  { --d:200ms; }  .delay-300  { --d:300ms; }
+.delay-400  { --d:400ms; }  .delay-500  { --d:500ms; }
+.delay-600  { --d:600ms; }  .delay-700  { --d:700ms; }
+.delay-800  { --d:800ms; }  .delay-900  { --d:900ms; }
+.delay-1200 { --d:1200ms; } .delay-1300 { --d:1300ms; }
+.delay-1400 { --d:1400ms; } .delay-1500 { --d:1500ms; }
+.delay-1600 { --d:1600ms; } .delay-1700 { --d:1700ms; }
+.delay-1800 { --d:1800ms; } .delay-1900 { --d:1900ms; }
+.delay-2000 { --d:2000ms; } .delay-2200 { --d:2200ms; }
+.delay-2300 { --d:2300ms; } .delay-2400 { --d:2400ms; }
+.delay-2600 { --d:2600ms; } .delay-2900 { --d:2900ms; }
+.delay-3000 { --d:3000ms; } .delay-3200 { --d:3200ms; }
+.delay-3400 { --d:3400ms; } .delay-3500 { --d:3500ms; }
+.delay-3600 { --d:3600ms; } .delay-4200 { --d:4200ms; }
+.delay-4500 { --d:4500ms; } .delay-5200 { --d:5200ms; }
+/* Override animation delays for faster transitions */
+.delay-200,.delay-300,.delay-400,.delay-500,.delay-600,.delay-700,
+.delay-800,.delay-900,.delay-1200,.delay-1300,.delay-1400,.delay-1500,
+.delay-1600,.delay-1700,.delay-1800,.delay-1900,.delay-2000,.delay-2200,
+.delay-2300,.delay-2400,.delay-2600,.delay-2900,.delay-3000,.delay-3200,
+.delay-3400,.delay-3500,.delay-3600,.delay-4200,.delay-4500,.delay-5200 {
+  --d:0ms;
+}
+.slide.active .anim-fade-up {
+  animation: fadeUp 0.85s cubic-bezier(0.2,0,0.3,1) var(--d,0ms) both;
+}
+.slide.active .anim-stamp {
+  animation: stamp 0.5s cubic-bezier(0.2,0.8,0.3,1.3) var(--d,0ms) both;
+}
+.slide.active .anim-float {
+  animation: floatIn 1.1s ease-out var(--d,0ms) both;
+}
+.slide.active .float-word {
+  animation: wordReveal 1.4s ease-out var(--fw-d, 0s) both;
+}
+.slide.active .anim-glow {
+  animation: glowIn 1.4s ease-out var(--d,0ms) both;
+}
+.slide.active .anim-expand {
+  animation: expandLine 0.9s ease-out var(--d,0ms) both;
+}
+.slide.active .title-divider {
+  animation: expandLine 1s ease-out 1500ms both;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes stamp {
+  from { opacity:0; transform:scale(1.22); }
+  to   { opacity:1; transform:scale(1); }
+}
+@keyframes floatIn {
+  from { opacity:0; transform:translateY(14px) scale(0.95); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes wordReveal {
+  0%   { opacity:0; filter:blur(4px); }
+  100% { opacity:1; filter:blur(0); }
+}
+@keyframes glowIn {
+  0%   { opacity:0; text-shadow:none; }
+  50%  { text-shadow:0 0 80px rgba(200,169,78,0.9); }
+  100% { opacity:1; text-shadow:0 0 40px rgba(200,169,78,0.5); }
+}
+@keyframes expandLine {
+  from { opacity:0; width:0; }
+  to   { opacity:1; width:280px; }
+}
+
+/* TRANSITION OVERLAY */
+.transition-overlay {
+  position:fixed; inset:0; z-index:900;
+  background:#000;
+  opacity:0; pointer-events:none;
+  transition:opacity 0.32s ease;
+}
+.transition-overlay.active { opacity:1; }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width:768px) {
+  .nav-prev { left:8px; }
+  .nav-next { right:8px; }
+  .slide-content { padding:20px 30px; }
+  .slide-content.bottom-left { left:20px; bottom:70px; }
+  .slide-content.right-center { right:20px; }
+  .slide-content.top-center { top:60px; padding:0 20px; }
+  .nav-btn { width:42px; height:42px; font-size:17px; }
+  .preacher-panel { max-height:50vh; }
+}
